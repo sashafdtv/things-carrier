@@ -1,5 +1,5 @@
 {
-    /* Быстро получение DOM узлов */
+    /* Быстрое получение DOM узлов */
     const getNode = selector => document.querySelector(selector);
     const getNodes = selector => document.querySelectorAll(selector);
 
@@ -52,7 +52,11 @@
                                 "title": "Сабтаски"
                             }
                         }
-                    ].concat(transformItems(getItems()))
+                    ]
+                        /* Сабтаски */
+                        .concat(transformItems(getItems()))
+
+                        /* Общие для всех проектов таски связанные с отгрузкуой */
                         .concat([
                             {
                                 "type": "heading",
