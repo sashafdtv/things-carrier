@@ -8,14 +8,14 @@
 
     /* Получаем описание таски из DOM */
     const getNotes = () => {
-        const paragraphs = getNodes(".info .text-editor .ProseMirror p");
+        const paragraphs = getNodes(".info .fields ~ .text-editor .ProseMirror p");
 
         const result = [...paragraphs].map(paragraph => {
             const separators = [...paragraph.children].filter(children => children.tagName === "BR");
             [...separators].forEach(separator => separator.replaceWith(" \r\n"));
             return paragraph;
         });
-        return [...result].map(p => p.textContent.trim() || "\r\n \r\n").join("").trim();
+        return [...result].map(p => p.textContent.trim()).join("\n").trim();
     }
 
     /* Получаем сабстаски из DOM */
@@ -36,9 +36,8 @@
         })
     }
 
-
-    /* Отправлям таску в things 3 */
-    window.open("things:///json?data=" +
+    /* Формируем JSON */
+    const projectJSON = "things:///json?data=" +
         encodeURI(JSON.stringify([
             {
                 "type": "project",
@@ -78,6 +77,8 @@
                         ])
                 }
             },
-        ]))
-    )
+        ]));
+
+    /* Отправлям таску в things 3 */
+    window.open(projectJSON);
 }
